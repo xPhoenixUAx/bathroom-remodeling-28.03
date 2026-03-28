@@ -1,0 +1,356 @@
+:root {
+  --bg: #f7f4ee;
+  --bg-soft: #f2ede5;
+  --surface: #fffdfc;
+  --surface-alt: #ece7de;
+  --surface-muted: #f7f2ea;
+  --surface-dark: #1e2328;
+  --text: #1e2328;
+  --text-soft: #5c6470;
+  --text-faint: #7c8a96;
+  --accent: #a67c52;
+  --accent-deep: #6b4f3a;
+  --accent-soft: #dfcfbb;
+  --blue-gray: #7c8a96;
+  --line: rgba(30, 35, 40, 0.12);
+  --line-strong: rgba(30, 35, 40, 0.24);
+  --shadow-soft: 0 22px 44px rgba(30, 35, 40, 0.08);
+  --shadow-card: 0 28px 64px rgba(30, 35, 40, 0.12);
+  --shadow-frame: 16px 16px 0 rgba(30, 35, 40, 0.05);
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --container: 1220px;
+  --gutter: clamp(20px, 3vw, 34px);
+  --section-space: clamp(78px, 8vw, 128px);
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --transition: 220ms ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    linear-gradient(90deg, rgba(30, 35, 40, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 12% 0%, rgba(166, 124, 82, 0.18), transparent 24%),
+    linear-gradient(180deg, #f7f4ee 0%, #f2ede5 100%);
+  background-size: 120px 120px, auto, auto;
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+.site-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+::selection {
+  background: rgba(166, 124, 82, 0.24);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p,
+ul,
+ol,
+blockquote {
+  margin: 0;
+}
+
+ul {
+  padding-left: 1.15rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
+h1 {
+  font-size: clamp(3.6rem, 7vw, 6.6rem);
+}
+
+h2 {
+  font-size: clamp(2.6rem, 4.5vw, 4rem);
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid rgba(24, 32, 39, 0.16);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 253, 250, 0.96);
+  padding: 0.95rem 1rem;
+  color: var(--text);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: rgba(166, 124, 82, 0.95);
+  box-shadow: 0 0 0 4px rgba(166, 124, 82, 0.14);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.container {
+  width: min(calc(100% - (var(--gutter) * 2)), var(--container));
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  padding: var(--section-space) 0;
+}
+
+.section--sand {
+  background:
+    linear-gradient(180deg, rgba(236, 231, 222, 0.94) 0%, rgba(247, 242, 234, 0.94) 100%);
+}
+
+.section--dark {
+  background:
+    linear-gradient(135deg, #1e2328 0%, #2a3238 100%);
+  color: #f6f1e8;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
+  color: var(--blue-gray);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 52px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+}
+
+.eyebrow--warm {
+  color: rgba(246, 241, 232, 0.78);
+}
+
+.display-title {
+  max-width: 11.5ch;
+}
+
+.lead {
+  max-width: 60ch;
+  font-size: clamp(1.05rem, 1.5vw, 1.18rem);
+  color: var(--text-soft);
+}
+
+.section--dark .lead,
+.section--dark p,
+.section--dark li {
+  color: rgba(246, 241, 232, 0.82);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0.92rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background-color var(--transition),
+    color var(--transition),
+    box-shadow var(--transition);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button--dark {
+  background: var(--surface-dark);
+  border-color: var(--surface-dark);
+  color: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.button--dark:hover {
+  background: #10171d;
+  border-color: #10171d;
+}
+
+.button--ghost {
+  border-color: rgba(30, 35, 40, 0.18);
+  background: rgba(255, 253, 250, 0.64);
+  color: var(--text);
+}
+
+.button--ghost:hover {
+  border-color: rgba(166, 124, 82, 0.75);
+  background: rgba(255, 253, 250, 0.88);
+}
+
+.button--light {
+  background: rgba(255, 253, 250, 0.94);
+  border-color: rgba(255, 253, 250, 0.94);
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
+}
+
+.button--block {
+  width: 100%;
+}
+
+.text-link {
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+.text-link-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.text-link-inline::after {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: currentColor;
+  transition: transform var(--transition);
+}
+
+.text-link-inline:hover::after {
+  transform: translateX(6px);
+}
+
+.text-link:hover {
+  color: var(--text);
+}
+
+.check-list {
+  display: grid;
+  gap: 0.85rem;
+  padding-left: 1.2rem;
+  color: var(--text-soft);
+}
+
+.check-list li::marker {
+  color: var(--accent-deep);
+}
+
+body.js-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 540ms ease,
+    transform 640ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.js-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.check-list--warm {
+  color: rgba(246, 241, 232, 0.82);
+}
+
+@media (max-width: 960px) {
+  .section {
+    padding: clamp(66px, 10vw, 92px) 0;
+  }
+}
+
+@media (max-width: 720px) {
+  h1 {
+    font-size: clamp(2.8rem, 12vw, 4rem);
+  }
+
+  h2 {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .button {
+    width: 100%;
+  }
+}

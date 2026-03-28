@@ -1,0 +1,25 @@
+.page-banner .page-banner__grid {
+  align-items: end;
+}
+
+.page-banner .media-placeholder {
+  min-height: 420px;
+}
+
+body[data-page="about"] .feature-grid {
+  grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
+}
+
+body[data-page="about"] .card-grid {
+  align-items: stretch;
+}
+
+body[data-page="about"] .planning-grid .media-placeholder {
+  min-height: 420px;
+}
+
+@media (max-width: 1080px) {
+  body[data-page="about"] .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,41 @@
+.page-banner--legal {
+  padding-bottom: clamp(34px, 5vw, 54px);
+  border-bottom: 1px solid rgba(24, 32, 39, 0.08);
+}
+
+.legal-header {
+  position: relative;
+  padding-left: 1.3rem;
+}
+
+.legal-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  width: 1px;
+  background: linear-gradient(180deg, var(--accent), rgba(24, 32, 39, 0));
+}
+
+.legal-header h1 {
+  max-width: 14ch;
+}
+
+.legal-card {
+  min-height: 100%;
+}
+
+.legal-card h2 {
+  font-size: 1.45rem;
+}
+
+@media (max-width: 760px) {
+  .legal-header {
+    padding-left: 0;
+  }
+
+  .legal-header::before {
+    display: none;
+  }
+}

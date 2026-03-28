@@ -1,0 +1,21 @@
+.page-banner .page-banner__grid {
+  align-items: end;
+}
+
+body[data-page="contact"] .lead-grid {
+  grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr);
+}
+
+body[data-page="contact"] .lead-form {
+  background: linear-gradient(180deg, rgba(255, 253, 252, 0.98), rgba(247, 242, 234, 0.94));
+}
+
+body[data-page="contact"] .stack-column {
+  gap: 1.1rem;
+}
+
+@media (max-width: 1080px) {
+  body[data-page="contact"] .lead-grid {
+    grid-template-columns: 1fr;
+  }
+}

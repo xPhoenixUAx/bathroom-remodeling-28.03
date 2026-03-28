@@ -41,10 +41,11 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    linear-gradient(90deg, rgba(30, 35, 40, 0.03) 1px, transparent 1px),
-    radial-gradient(circle at 12% 0%, rgba(166, 124, 82, 0.18), transparent 24%),
-    linear-gradient(180deg, #f7f4ee 0%, #f2ede5 100%);
-  background-size: 120px 120px, auto, auto;
+    linear-gradient(90deg, rgba(30, 35, 40, 0.026) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(30, 35, 40, 0.018) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(166, 124, 82, 0.05) 0%, rgba(247, 244, 238, 0) 18%),
+    linear-gradient(180deg, #f7f4ee 0%, #f4efe7 54%, #f7f4ee 100%);
+  background-size: 160px 160px, 160px 160px, auto, auto;
   color: var(--text);
   font-family: var(--font-body);
   line-height: 1.7;
@@ -58,6 +59,32 @@ body.menu-open {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.site-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent calc(50% - min(610px, 44vw)),
+      rgba(30, 35, 40, 0.045) calc(50% - min(610px, 44vw)),
+      rgba(30, 35, 40, 0.045) calc(50% - min(610px, 44vw) + 1px),
+      transparent calc(50% - min(610px, 44vw) + 1px),
+      transparent calc(50% + min(610px, 44vw) - 1px),
+      rgba(30, 35, 40, 0.045) calc(50% + min(610px, 44vw) - 1px),
+      rgba(30, 35, 40, 0.045) calc(50% + min(610px, 44vw)),
+      transparent calc(50% + min(610px, 44vw))
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.site-shell > * {
+  position: relative;
+  z-index: 1;
 }
 
 main {

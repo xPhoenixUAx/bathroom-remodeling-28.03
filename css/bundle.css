@@ -233,6 +233,7 @@
 }
 
 .header-actions {
+  justify-self: end;
   display: inline-flex;
   align-items: center;
   gap: 0.95rem;
@@ -382,11 +383,16 @@
 }
 
 .mobile-menu__panel {
-  position: relative;
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 0;
+  height: 100dvh;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   padding: 1.35rem var(--gutter) 2.2rem;
   color: #f6f1e8;
   background: linear-gradient(160deg, #161d22 0%, #24313b 100%);
@@ -615,6 +621,229 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.cookie-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 1.2rem;
+  z-index: 65;
+  width: min(calc(100% - 2rem), 1100px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 18px);
+  transition:
+    opacity 320ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cookie-banner.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.cookie-banner__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.2rem 1.4rem 1.25rem;
+  border: 1px solid rgba(24, 32, 39, 0.12);
+  border-radius: 9px;
+  background: rgba(255, 253, 250, 0.98);
+  box-shadow: 0 22px 44px rgba(24, 32, 39, 0.1);
+}
+
+.cookie-banner__panel::before {
+  content: "";
+  position: absolute;
+  left: 1.3rem;
+  right: 1.3rem;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(24, 32, 39, 0),
+    rgba(166, 124, 82, 0.86),
+    rgba(24, 32, 39, 0)
+  );
+}
+
+.cookie-banner__copy {
+  display: grid;
+  gap: 0.38rem;
+  max-width: 78ch;
+}
+
+.cookie-banner__copy span {
+  color: var(--text-faint);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cookie-banner__copy p {
+  max-width: 62ch;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.62;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cookie-banner__actions .button {
+  min-height: 46px;
+  white-space: nowrap;
+}
+
+.cookie-banner__actions .text-link {
+  color: var(--text);
+}
+
+.confirmation-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+
+.confirmation-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.confirmation-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 32, 39, 0.62);
+}
+
+.confirmation-modal__dialog {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(calc(100% - 2rem), 560px);
+  transform: translate(-50%, calc(-50% + 20px));
+  opacity: 0;
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease;
+}
+
+.confirmation-modal.is-open .confirmation-modal__dialog {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.confirmation-modal__panel {
+  position: relative;
+  display: grid;
+  gap: 1.1rem;
+  padding: 1.5rem 1.5rem 1.4rem;
+  border: 1px solid rgba(24, 32, 39, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 253, 250, 0.985);
+  box-shadow: 0 26px 54px rgba(24, 32, 39, 0.16);
+}
+
+.confirmation-modal__panel::before {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(24, 32, 39, 0),
+    rgba(166, 124, 82, 0.92),
+    rgba(24, 32, 39, 0)
+  );
+}
+
+.confirmation-modal__close {
+  position: absolute;
+  top: 0.95rem;
+  right: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(24, 32, 39, 0.1);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(247, 241, 232, 0.88);
+}
+
+.confirmation-modal__close :is(i, .lucide) {
+  width: 0.95rem;
+  height: 0.95rem;
+  stroke-width: 1.9;
+}
+
+.confirmation-modal__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(166, 124, 82, 0.28);
+  border-radius: 50%;
+  color: var(--accent-deep);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 252, 247, 0.96),
+    rgba(241, 233, 221, 0.9)
+  );
+}
+
+.confirmation-modal__icon :is(i, .lucide) {
+  width: 1.15rem;
+  height: 1.15rem;
+  stroke-width: 2;
+}
+
+.confirmation-modal__copy {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.confirmation-modal__copy span {
+  color: var(--text-faint);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.confirmation-modal__copy h2 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  line-height: 0.98;
+}
+
+.confirmation-modal__copy p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.confirmation-modal__actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .hero {
@@ -1444,6 +1673,16 @@
 }
 
 @media (max-width: 1080px) {
+  .header-shell {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    min-height: 82px;
+  }
+
+  .brand-copy small {
+    display: none;
+  }
+
   .desktop-nav,
   .header-cta,
   .header-phone {
@@ -1492,6 +1731,10 @@
 
   .floating-note {
     max-width: 320px;
+  }
+
+  .cookie-banner {
+    width: min(calc(100% - 1.5rem), 920px);
   }
 }
 
@@ -1555,5 +1798,58 @@
 
   .mobile-menu__nav {
     margin-top: 3.2rem;
+  }
+
+  .cookie-banner {
+    bottom: 0.85rem;
+    width: calc(100% - 1rem);
+  }
+
+  .cookie-banner__panel {
+    align-items: start;
+    padding: 1rem 1rem 1.05rem;
+  }
+
+  .cookie-banner__panel::before {
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .cookie-banner__copy p {
+    max-width: none;
+    font-size: 0.91rem;
+  }
+
+  .cookie-banner__actions {
+    justify-content: stretch;
+  }
+
+  .cookie-banner__actions .button,
+  .cookie-banner__actions .text-link {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .confirmation-modal__dialog {
+    width: calc(100% - 1rem);
+  }
+
+  .confirmation-modal__panel {
+    padding: 1.2rem 1rem 1.05rem;
+  }
+
+  .confirmation-modal__panel::before {
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .confirmation-modal__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .confirmation-modal__actions .button {
+    width: 100%;
   }
 }

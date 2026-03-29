@@ -12,6 +12,9 @@
   const revealItems = document.querySelectorAll("[data-reveal]");
   const page = body.dataset.page;
   const service = body.dataset.service;
+  const cookieConsentStorageKey = "bathscope-cookie-consent";
+  let formConfirmationModal = null;
+  let lastModalFocusedElement = null;
   let lastFocusedElement = null;
 
   const createIcons = () => {
@@ -162,19 +165,8 @@
     forms.forEach((form) => {
       form.addEventListener("submit", (event) => {
         event.preventDefault();
-
-        let feedback = form.querySelector(".form-feedback");
-
-        if (!feedback) {
-          feedback = document.createElement("p");
-          feedback.className = "form-feedback";
-          feedback.setAttribute("role", "status");
-          form.appendChild(feedback);
-        }
-
-        feedback.textContent =
-          "Thank you. Your request has been received, and the next step would typically be reviewing local independent contractor options based on your project details.";
         form.reset();
+        openFormConfirmationModal();
       });
     });
   };
@@ -212,6 +204,162 @@
     });
   };
 
+  const getCookieConsent = () => {
+    try {
+      return window.localStorage.getItem(cookieConsentStorageKey);
+    } catch {
+      return null;
+    }
+  };
+
+  const setCookieConsent = (value) => {
+    body.dataset.cookieConsent = value;
+
+    try {
+      window.localStorage.setItem(cookieConsentStorageKey, value);
+    } catch {
+      // Ignore storage failures and keep consent only in-memory for this visit.
+    }
+  };
+
+  const mountCookieBanner = () => {
+    const storedConsent = getCookieConsent();
+
+    if (storedConsent) {
+      body.dataset.cookieConsent = storedConsent;
+      return;
+    }
+
+    const banner = document.createElement("div");
+    banner.className = "cookie-banner";
+    banner.setAttribute("role", "dialog");
+    banner.setAttribute("aria-live", "polite");
+    banner.setAttribute("aria-label", "Cookie notice");
+    banner.innerHTML = `
+      <div class="cookie-banner__panel">
+        <div class="cookie-banner__copy">
+          <span>Cookie Notice</span>
+          <p>
+            BathScope Guide uses cookies and similar technologies to support core site
+            functionality, understand traffic patterns, and improve the website experience.
+            You can accept all cookies or decline non-essential cookies.
+          </p>
+        </div>
+        <div class="cookie-banner__actions">
+          <a class="text-link" href="cookie.html">Cookie Policy</a>
+          <button class="button button--light" type="button" data-cookie-action="decline">
+            Decline Non-Essential
+          </button>
+          <button class="button button--dark" type="button" data-cookie-action="accept">
+            Accept Cookies
+          </button>
+        </div>
+      </div>
+    `;
+
+    const closeBanner = (choice) => {
+      setCookieConsent(choice);
+      banner.classList.remove("is-visible");
+
+      window.setTimeout(() => {
+        banner.remove();
+      }, 420);
+    };
+
+    banner.querySelector('[data-cookie-action="decline"]')?.addEventListener("click", () => {
+      closeBanner("rejected");
+    });
+
+    banner.querySelector('[data-cookie-action="accept"]')?.addEventListener("click", () => {
+      closeBanner("accepted");
+    });
+
+    document.body.appendChild(banner);
+
+    window.requestAnimationFrame(() => {
+      banner.classList.add("is-visible");
+    });
+  };
+
+  const closeFormConfirmationModal = () => {
+    if (!formConfirmationModal) {
+      return;
+    }
+
+    formConfirmationModal.classList.remove("is-open");
+    formConfirmationModal.setAttribute("aria-hidden", "true");
+    body.classList.remove("modal-open");
+
+    window.setTimeout(() => {
+      formConfirmationModal?.setAttribute("hidden", "");
+    }, 280);
+
+    if (lastModalFocusedElement instanceof HTMLElement) {
+      lastModalFocusedElement.focus();
+    }
+  };
+
+  const mountFormConfirmationModal = () => {
+    if (formConfirmationModal) {
+      return formConfirmationModal;
+    }
+
+    const modal = document.createElement("div");
+    modal.className = "confirmation-modal";
+    modal.setAttribute("hidden", "");
+    modal.setAttribute("aria-hidden", "true");
+    modal.innerHTML = `
+      <div class="confirmation-modal__backdrop" data-modal-close></div>
+      <div class="confirmation-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="form-confirmation-title">
+        <div class="confirmation-modal__panel">
+          <button class="confirmation-modal__close" type="button" aria-label="Close confirmation" data-modal-close>
+            <i data-lucide="x"></i>
+          </button>
+          <div class="confirmation-modal__icon" aria-hidden="true">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="confirmation-modal__copy">
+            <span>Request Received</span>
+            <h2 id="form-confirmation-title">Thank you.</h2>
+            <p>
+              Your project details have been received. The next step would typically
+              be reviewing the remodeling paths and local independent contractor
+              categories that best align with your request.
+            </p>
+          </div>
+          <div class="confirmation-modal__actions">
+            <button class="button button--dark" type="button" data-modal-close>
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    modal.querySelectorAll("[data-modal-close]").forEach((button) => {
+      button.addEventListener("click", closeFormConfirmationModal);
+    });
+
+    document.body.appendChild(modal);
+    formConfirmationModal = modal;
+    createIcons();
+    return modal;
+  };
+
+  const openFormConfirmationModal = () => {
+    const modal = mountFormConfirmationModal();
+
+    lastModalFocusedElement = document.activeElement;
+    modal.removeAttribute("hidden");
+    modal.setAttribute("aria-hidden", "false");
+    body.classList.add("modal-open");
+
+    window.requestAnimationFrame(() => {
+      modal.classList.add("is-open");
+      modal.querySelector(".confirmation-modal__close")?.focus();
+    });
+  };
+
   document.querySelectorAll("[data-year]").forEach((node) => {
     node.textContent = String(new Date().getFullYear());
   });
@@ -223,6 +371,13 @@
   bindFaqs();
   bindForms();
   bindReveal();
+  mountCookieBanner();
 
   window.addEventListener("scroll", updateHeaderState, { passive: true });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && formConfirmationModal?.classList.contains("is-open")) {
+      closeFormConfirmationModal();
+    }
+  });
 })();

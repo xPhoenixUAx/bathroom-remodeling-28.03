@@ -4,7 +4,7 @@
 
 .detail-hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
 }
@@ -12,8 +12,14 @@
 .detail-hero__intro {
   position: relative;
   display: grid;
-  gap: 1.35rem;
+  gap: 1.2rem;
   padding-left: 1.35rem;
+}
+
+.detail-hero__intro h1 {
+  max-width: none;
+  font-size: clamp(2.8rem, 4.35vw, 4.55rem);
+  line-height: 0.97;
 }
 
 .detail-hero__intro::before {
@@ -23,24 +29,35 @@
   top: 0.5rem;
   bottom: 0.5rem;
   width: 1px;
-  background: linear-gradient(180deg, rgba(166, 124, 82, 0.92), rgba(30, 35, 40, 0));
+  background: linear-gradient(180deg, rgba(166, 124, 82, 0.72), rgba(30, 35, 40, 0));
 }
 
 .detail-hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.9rem 1rem;
   align-items: center;
 }
 
 .detail-hero__rail {
   display: grid;
-  gap: 0.8rem;
+  gap: 0.7rem;
+  margin-top: 0.15rem;
 }
 
 .detail-hero__rail article {
-  padding-top: 0.95rem;
-  border-top: 1px solid rgba(30, 35, 40, 0.12);
+  position: relative;
+  padding: 0.15rem 0 0.15rem 1rem;
+}
+
+.detail-hero__rail article::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  bottom: 0.15rem;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(166, 124, 82, 0.62), rgba(166, 124, 82, 0.08));
 }
 
 .detail-hero__rail span {
@@ -54,44 +71,92 @@
 }
 
 .detail-hero__rail p {
+  margin: 0;
   color: var(--text-soft);
+  line-height: 1.68;
 }
 
 .detail-hero__visual {
-  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 230px;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) 215px;
+  gap: 1.15rem;
   align-items: end;
 }
 
-.detail-hero__visual::before {
-  content: "";
-  position: absolute;
-  top: 42px;
-  right: 18px;
-  width: 58%;
-  height: 66%;
-  background: rgba(236, 231, 222, 0.84);
-  border: 1px solid rgba(166, 124, 82, 0.18);
-  z-index: -1;
+.detail-hero__image {
+  min-height: clamp(440px, 48vw, 600px);
 }
 
-.detail-hero__image {
-  min-height: 620px;
+body[data-service="walk-in"] .detail-hero__image {
+  min-height: clamp(440px, 48vw, 600px);
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.06), rgba(30, 35, 40, 0.14)),
+    url("../../img/services/service-pages/walk-in/Walk-in-Showers-main.jpg") center center / cover no-repeat;
+  box-shadow: 0 24px 48px rgba(30, 35, 40, 0.12);
+}
+
+body[data-service="walk-in"] .detail-hero__image::after {
+  content: "";
+  display: none;
+}
+
+body[data-service="tub-to-shower"] .detail-hero__image {
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.06), rgba(30, 35, 40, 0.14)),
+    url("../../img/services/service-pages/tub-to-shower/tub-to-shower-main.jpg") center center / cover no-repeat;
+  box-shadow: 0 24px 48px rgba(30, 35, 40, 0.12);
+}
+
+body[data-service="tub-to-shower"] .detail-hero__image::after {
+  content: "";
+  display: none;
+}
+
+body[data-service="bathtub-solutions"] .detail-hero__image {
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.06), rgba(30, 35, 40, 0.14)),
+    url("../../img/services/service-pages/shower-to-tub/shower-to-tub-main.jpg") center center / cover no-repeat;
+  box-shadow: 0 24px 48px rgba(30, 35, 40, 0.12);
+}
+
+body[data-service="bathtub-solutions"] .detail-hero__image::after {
+  content: "";
+  display: none;
+}
+
+body[data-service="wall-solutions"] .detail-hero__image {
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.06), rgba(30, 35, 40, 0.14)),
+    url("../../img/services/service-pages/wall/wall-main.jpg") center center / cover no-repeat;
+  box-shadow: 0 24px 48px rgba(30, 35, 40, 0.12);
+}
+
+body[data-service="wall-solutions"] .detail-hero__image::after {
+  content: "";
+  display: none;
+}
+
+body[data-service="accessibility"] .detail-hero__image {
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.06), rgba(30, 35, 40, 0.14)),
+    url("../../img/services/service-pages/acces/access-main.jpg") center center / cover no-repeat;
+  box-shadow: 0 24px 48px rgba(30, 35, 40, 0.12);
+}
+
+body[data-service="accessibility"] .detail-hero__image::after {
+  content: "";
+  display: none;
 }
 
 .detail-hero__note {
-  padding: 1.25rem;
-  border: 1px solid rgba(30, 35, 40, 0.1);
-  border-radius: var(--radius-md);
-  background: linear-gradient(180deg, rgba(255, 253, 252, 0.98), rgba(236, 231, 222, 0.82));
-  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.45rem;
+  padding: 0 0 0 1rem;
+  border-left: 2px solid rgba(166, 124, 82, 0.34);
 }
 
 .detail-hero__note span {
   display: inline-block;
-  margin-bottom: 0.55rem;
   color: var(--text-faint);
   font-size: 0.68rem;
   font-weight: 800;
@@ -100,7 +165,9 @@
 }
 
 .detail-hero__note p {
+  margin: 0;
   color: var(--text-soft);
+  line-height: 1.7;
 }
 
 .overview-shell {
@@ -112,33 +179,45 @@
 
 .overview-shell__story {
   display: grid;
-  gap: 1rem;
+  gap: 0.85rem;
+  padding-top: 0.15rem;
 }
 
 .overview-shell__story p:not(.eyebrow) {
+  margin: 0;
   color: var(--text-soft);
+  line-height: 1.72;
 }
 
 .overview-shell__panels {
   display: grid;
-  gap: 1rem;
+  gap: 0;
+  border-top: 1px solid rgba(30, 35, 40, 0.12);
+  margin-top: 0.15rem;
 }
 
 .editorial-panel {
-  padding: 1.45rem;
-  border: 1px solid rgba(30, 35, 40, 0.1);
-  border-radius: var(--radius-md);
-  background: linear-gradient(180deg, rgba(255, 253, 252, 0.98), rgba(247, 242, 234, 0.92));
-  box-shadow: var(--shadow-soft);
+  position: relative;
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.05rem 0 1.1rem 1.15rem;
+  border-bottom: 1px solid rgba(30, 35, 40, 0.12);
+  background: none;
+  box-shadow: none;
 }
 
-.editorial-panel--muted {
-  background: linear-gradient(180deg, rgba(236, 231, 222, 0.9), rgba(255, 253, 252, 0.95));
+.editorial-panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(166, 124, 82, 0.65), rgba(166, 124, 82, 0.08));
 }
 
 .editorial-panel__label {
   display: inline-block;
-  margin-bottom: 0.85rem;
   color: var(--text-faint);
   font-size: 0.68rem;
   font-weight: 800;
@@ -146,10 +225,26 @@
   text-transform: uppercase;
 }
 
+.editorial-panel .check-list {
+  margin: 0;
+  gap: 0.72rem;
+}
+
 .consideration-shell__intro {
   display: grid;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.85rem;
+  margin-bottom: 1.65rem;
+}
+
+.consideration-shell__intro h2,
+.fit-section__copy h2,
+.comparison-section__intro h2,
+.faq-shell__aside h2,
+.connection-cta__shell h2,
+.overview-shell__story h2 {
+  max-width: none;
+  font-size: clamp(2.15rem, 3.2vw, 3.45rem);
+  line-height: 0.99;
 }
 
 .consideration-grid {
@@ -161,12 +256,16 @@
 .consideration-card {
   grid-column: span 4;
   display: grid;
-  gap: 0.75rem;
-  padding: 1.4rem;
-  border: 1px solid rgba(30, 35, 40, 0.1);
-  border-radius: var(--radius-md);
-  background: rgba(255, 253, 252, 0.9);
-  box-shadow: var(--shadow-soft);
+  gap: 0.6rem;
+  padding: 1.05rem 0 1.15rem;
+  border-top: 1px solid rgba(30, 35, 40, 0.12);
+  background: none;
+  box-shadow: none;
+}
+
+.consideration-card h3 {
+  font-size: clamp(1.18rem, 1.55vw, 1.4rem);
+  line-height: 1.04;
 }
 
 .consideration-card span {
@@ -178,12 +277,15 @@
 }
 
 .consideration-card p {
+  margin: 0;
   color: var(--text-soft);
+  line-height: 1.7;
 }
 
 .consideration-card--visual {
   grid-column: span 6;
   padding: 0;
+  border-top: 0;
   overflow: hidden;
 }
 
@@ -195,8 +297,72 @@
   box-shadow: none;
 }
 
+body[data-service="walk-in"] .consideration-card__image {
+  min-height: 100%;
+  min-height: 360px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.04), rgba(30, 35, 40, 0.1)),
+    url("../../img/services/service-pages/walk-in/Walk-in-Showers-second.jpg") center center / cover no-repeat;
+}
+
 .consideration-card__image::before {
   inset: 16px;
+}
+
+body[data-service="walk-in"] .consideration-card__image::before {
+  inset: 16px;
+}
+
+body[data-service="walk-in"] .consideration-card__image::after {
+  content: "";
+  display: none;
+}
+
+body[data-service="tub-to-shower"] .consideration-card__image {
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.04), rgba(30, 35, 40, 0.1)),
+    url("../../img/services/service-pages/tub-to-shower/tub-to-shower-second.jpg") center center / cover no-repeat;
+}
+
+body[data-service="tub-to-shower"] .consideration-card__image::after {
+  content: "";
+  display: none;
+}
+
+body[data-service="bathtub-solutions"] .consideration-card__image {
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.04), rgba(30, 35, 40, 0.1)),
+    url("../../img/services/service-pages/shower-to-tub/shower-to-tub-second.jpg") center center / cover no-repeat;
+}
+
+body[data-service="bathtub-solutions"] .consideration-card__image::after {
+  content: "";
+  display: none;
+}
+
+body[data-service="wall-solutions"] .consideration-card__image {
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.04), rgba(30, 35, 40, 0.1)),
+    url("../../img/services/service-pages/wall/wall-second.jpg") center center / cover no-repeat;
+}
+
+body[data-service="wall-solutions"] .consideration-card__image::after {
+  content: "";
+  display: none;
+}
+
+body[data-service="accessibility"] .consideration-card__image {
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.04), rgba(30, 35, 40, 0.1)),
+    url("../../img/services/service-pages/acces/access-second.jpg") center center / cover no-repeat;
+}
+
+body[data-service="accessibility"] .consideration-card__image::after {
+  content: "";
+  display: none;
 }
 
 .consideration-card--wide {
@@ -214,29 +380,46 @@
   min-height: 560px;
 }
 
+body[data-service="walk-in"] .fit-section__image {
+  min-height: 560px;
+  background:
+    linear-gradient(180deg, rgba(30, 35, 40, 0.05), rgba(30, 35, 40, 0.12)),
+    url("../../img/services/service-pages/walk-in/Walk-in-Showers-thirth.jpg") center center / cover no-repeat;
+  box-shadow: 0 24px 48px rgba(30, 35, 40, 0.12);
+}
+
+body[data-service="walk-in"] .fit-section__image::after {
+  content: "";
+  display: none;
+}
+
 .fit-section__copy {
   display: grid;
-  gap: 1.2rem;
+  gap: 1rem;
+  padding-top: 0.15rem;
 }
 
 .fit-notes {
   display: grid;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .fit-notes article {
-  padding-top: 1rem;
+  padding-top: 0.85rem;
   border-top: 1px solid rgba(30, 35, 40, 0.12);
 }
 
 .fit-notes strong {
   display: block;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.28rem;
   color: var(--text);
+  font-size: 1.05rem;
 }
 
 .fit-notes p {
+  margin: 0;
   color: var(--text-soft);
+  line-height: 1.68;
 }
 
 .comparison-section__grid {
@@ -248,7 +431,14 @@
 
 .comparison-section__intro {
   display: grid;
-  gap: 1rem;
+  gap: 0.85rem;
+  padding-top: 0.15rem;
+}
+
+.comparison-section__intro p {
+  margin: 0;
+  color: rgba(246, 241, 232, 0.82);
+  line-height: 1.72;
 }
 
 .comparison-split {
@@ -258,7 +448,9 @@
 }
 
 .comparison-split__panel {
-  padding: 1.5rem;
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.3rem 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.05);
@@ -270,12 +462,16 @@
 
 .comparison-split__panel span {
   display: inline-block;
-  margin-bottom: 0.85rem;
   color: rgba(247, 242, 234, 0.72);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.comparison-split__panel .check-list {
+  margin: 0;
+  gap: 0.72rem;
 }
 
 .faq-shell--service {
@@ -285,16 +481,46 @@
   align-items: start;
 }
 
+.faq-shell__aside {
+  display: grid;
+  gap: 0.85rem;
+  padding-top: 0.15rem;
+}
+
+.faq-section--service .faq-question {
+  padding: 1.15rem 0;
+}
+
+.faq-section--service .faq-question span {
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.34;
+}
+
+.faq-section--service .faq-item.is-open .faq-answer {
+  padding-bottom: 1.15rem;
+}
+
 .connection-cta__shell {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: clamp(1.6rem, 3vw, 2.2rem);
+  padding: clamp(1.45rem, 2.5vw, 1.95rem);
   border: 1px solid rgba(30, 35, 40, 0.1);
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(236, 231, 222, 0.86), rgba(255, 253, 252, 0.96));
-  box-shadow: var(--shadow-soft);
+  background: linear-gradient(180deg, rgba(255, 253, 252, 0.96), rgba(236, 231, 222, 0.72));
+}
+
+.connection-cta__shell > div {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 40rem;
+}
+
+.connection-cta__shell p:not(.eyebrow) {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.68;
 }
 
 @media (max-width: 1080px) {
@@ -308,6 +534,10 @@
 
   .detail-hero__visual {
     grid-template-columns: 1fr;
+  }
+
+  .detail-hero__note {
+    max-width: 34rem;
   }
 }
 

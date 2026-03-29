@@ -5,10 +5,13 @@
   const menu = document.getElementById("mobile-menu");
   const openButtons = document.querySelectorAll("[data-menu-open]");
   const closeButtons = document.querySelectorAll("[data-menu-close]");
+  const mobileServicesToggle = menu?.querySelector("[data-mobile-services-toggle]");
+  const mobileServicesPanel = menu?.querySelector("[data-mobile-services-panel]");
   const faqGroups = document.querySelectorAll("[data-faq-group]");
   const forms = document.querySelectorAll("form");
   const revealItems = document.querySelectorAll("[data-reveal]");
   const page = body.dataset.page;
+  const service = body.dataset.service;
   let lastFocusedElement = null;
 
   const createIcons = () => {
@@ -32,6 +35,14 @@
 
     document.querySelectorAll(`[data-nav="${page}"]`).forEach((link) => {
       link.classList.add("is-active");
+    });
+
+    if (!service) {
+      return;
+    }
+
+    document.querySelectorAll(`[data-service-link="${service}"]`).forEach((link) => {
+      link.classList.add("is-current");
     });
   };
 
@@ -61,9 +72,29 @@
     }
   };
 
+  const setMobileServicesState = (open) => {
+    if (!mobileServicesToggle || !mobileServicesPanel) {
+      return;
+    }
+
+    const mobileServicesItem = mobileServicesToggle.closest(".mobile-submenu");
+
+    mobileServicesItem?.classList.toggle("is-open", open);
+    mobileServicesToggle.setAttribute("aria-expanded", String(open));
+    mobileServicesPanel.setAttribute("aria-hidden", String(!open));
+  };
+
   const bindMenu = () => {
     if (!menu) {
       return;
+    }
+
+    if (mobileServicesToggle && mobileServicesPanel) {
+      setMobileServicesState(page === "services");
+
+      mobileServicesToggle.addEventListener("click", () => {
+        setMobileServicesState(mobileServicesToggle.getAttribute("aria-expanded") !== "true");
+      });
     }
 
     openButtons.forEach((button) => {
@@ -88,6 +119,19 @@
   const bindFaqs = () => {
     faqGroups.forEach((group) => {
       const items = Array.from(group.querySelectorAll(".faq-item"));
+      const setFaqState = (item, open) => {
+        const button = item.querySelector("[data-faq-question]");
+        const answer = item.querySelector("[data-faq-answer]");
+
+        if (!button || !answer) {
+          return;
+        }
+
+        item.classList.toggle("is-open", open);
+        button.setAttribute("aria-expanded", String(open));
+        answer.hidden = false;
+        answer.setAttribute("aria-hidden", String(!open));
+      };
 
       items.forEach((item) => {
         const button = item.querySelector("[data-faq-question]");
@@ -97,23 +141,18 @@
           return;
         }
 
+        setFaqState(item, button.getAttribute("aria-expanded") === "true");
+
         button.addEventListener("click", () => {
           const shouldOpen = button.getAttribute("aria-expanded") !== "true";
 
           items.forEach((otherItem) => {
-            const otherButton = otherItem.querySelector("[data-faq-question]");
-            const otherAnswer = otherItem.querySelector("[data-faq-answer]");
-
-            if (!otherButton || !otherAnswer) {
-              return;
-            }
-
-            otherButton.setAttribute("aria-expanded", "false");
-            otherAnswer.hidden = true;
+            setFaqState(otherItem, false);
           });
 
-          button.setAttribute("aria-expanded", String(shouldOpen));
-          answer.hidden = !shouldOpen;
+          if (shouldOpen) {
+            setFaqState(item, true);
+          }
         });
       });
     });
@@ -134,7 +173,7 @@
         }
 
         feedback.textContent =
-          "Thanks. This demo form is ready for your preferred CRM or form handler integration.";
+          "Thank you. Your request has been received, and the next step would typically be reviewing local independent contractor options based on your project details.";
         form.reset();
       });
     });

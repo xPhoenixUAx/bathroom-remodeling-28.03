@@ -162,7 +162,7 @@
 
 .path-row {
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr) 280px;
+  grid-template-columns: 84px minmax(0, 1fr) 280px;
   gap: 1.25rem;
   align-items: start;
   padding: 1.45rem 0;
@@ -170,11 +170,17 @@
 }
 
 .path-panel__index {
-  color: var(--accent-deep);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  width: 84px;
+  color: rgba(166, 124, 82, 0.34);
+  font-family: var(--font-display);
+  font-size: clamp(2.65rem, 4vw, 4rem);
+  line-height: 0.82;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+  white-space: nowrap;
 }
 
 .path-row__main {

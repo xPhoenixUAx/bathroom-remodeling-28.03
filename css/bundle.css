@@ -1229,7 +1229,7 @@
 }
 
 .quote-card::after {
-  content: "Editorial Note";
+  content: none;
   position: absolute;
   top: 1rem;
   right: 1rem;

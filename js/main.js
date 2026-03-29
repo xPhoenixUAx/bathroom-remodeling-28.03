@@ -234,11 +234,11 @@
     banner.className = "cookie-banner";
     banner.setAttribute("role", "dialog");
     banner.setAttribute("aria-live", "polite");
-    banner.setAttribute("aria-label", "Cookie notice");
+    banner.setAttribute("aria-label", "Cookie banner");
     banner.innerHTML = `
       <div class="cookie-banner__panel">
         <div class="cookie-banner__copy">
-          <span>Cookie Notice</span>
+          <span>Cookies</span>
           <p>
             BathScope Guide uses cookies and similar technologies to support core site
             functionality, understand traffic patterns, and improve the website experience.
@@ -319,12 +319,12 @@
             <i data-lucide="check"></i>
           </div>
           <div class="confirmation-modal__copy">
-            <span>Request Received</span>
+            <span>Request sent</span>
             <h2 id="form-confirmation-title">Thank you.</h2>
             <p>
-              Your project details have been received. The next step would typically
-              be reviewing the remodeling paths and local independent contractor
-              categories that best align with your request.
+              Your project details have been received. We'll use them to narrow the
+              remodeling paths and local independent contractor categories that best
+              match your request.
             </p>
           </div>
           <div class="confirmation-modal__actions">
